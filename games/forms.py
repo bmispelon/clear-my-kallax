@@ -8,7 +8,7 @@ from games.models import Game
 
 class GameAdminForm(forms.ModelForm):
     rules_lang = forms.MultipleChoiceField(choices=Game.LANG.choices, required=False)
-    links = SimpleArrayField(forms.URLField(), delimiter='\n', widget=forms.Textarea)
+    links = SimpleArrayField(forms.URLField(), delimiter='\n', widget=forms.Textarea, required=False)
 
     class Meta:
         model = Game
