@@ -45,6 +45,7 @@ if 'DJANGO_EMAIL_HOST' in os.environ:
     EMAIL_HOST_PASSWORD = os.getenv('DJANGO_EMAIL_HOST_PASSWORD', '')
     EMAIL_USE_TLS = os.getenv('DJANGO_EMAIL_USE_TLS', 'FALSE').upper() in {'TRUE', 'YES', 'Y'}
     EMAIL_USE_SSL = os.getenv('DJANGO_EMAIL_USE_SSL', 'FALSE').upper() in {'TRUE', 'YES', 'Y'}
+    EMAIL_TIMEOUT = int(os.getenv('DJANGO_EMAIL_TIMEOUT', '30'))
 else:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
