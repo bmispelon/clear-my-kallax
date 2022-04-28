@@ -162,3 +162,8 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+if 'DJANGO_SECURE_PROXY_SSL_HEADER' in os.environ:
+    SECURE_PROXY_SSL_HEADER = (ov.environ['DJANGO_SECURE_PROXY_SSL_HEADER'], 'https')
+SECURE_SSL_REDIRECT = os.getenv('DJANGO_SECURE_SSL_REDIRECT', 'FALSE').upper() in {'TRUE', 'YES', 'Y'}
