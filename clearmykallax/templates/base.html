@@ -1,0 +1,21 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>{% block title %}Baptiste's Games Giveaway{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <script src="{% static 'application.js' %}"></script>
+  </head>
+  <body>
+    <header>{% block header %}{% endblock %}</header>
+    {% if user.is_authenticated %}
+    <section class="session-info">
+      Logged in as <strong>{{ user.email }}</strong>.
+      <a href="{% url 'logout' %}" class="logout">log out</a>
+    </section>
+    {% endif %}
+    <main>{% block main %}{% endblock %}</main>
+    <footer>{% block footer %}{% endblock %}
+  </body>
+</html>

@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block main %}
+  <form method="get" class="games-filter {% if filterform.is_bound %}active{% endif %}">
+    <fieldset class="foldable">
+      <legend>Filter</legend>
+
+      <div class="fieldwrapper">
+        {{ filterform.keyword.label_tag }}
+        {{ filterform.keyword }}
+      </div>
+
+      <div class="fieldwrapper">
+        {{ filterform.game_lang.label_tag }}
+        {{ filterform.game_lang }}
+      </div>
+
+      <div class="fieldwrapper">
+        {{ filterform.rules_lang.label_tag }}
+        {{ filterform.rules_lang }}
+      </div>
+
+      <div class="fieldwrapper submit">
+        <button type="submit">Apply filter</button>
+        {% if filterform.is_bound %}<a href="{% url 'games:list' %}">Clear all filters</a>{% endif %}
+      </div>
+    </fieldset>
+  </form>
+
+  {% with c=games.paginator.count %}
+    <h1>{{ c }} {% if filterform.is_bound %}Result{{ c|pluralize }}{% else %}Game{{ c|pluralize }}{% endif %}:</h1>
+  {% endwith %}
+
+  {% include 'paginator_nav.html' with page_obj=games %}
+
+  <section class="games-list">
+  {% for game in games %}
+    <article>
+      <a href="{% url 'games:detail' slug=game.slug %}">
+        <img src="{% static 'Dice-256.png' %}" alt="game illustration">
+        <h2>{{ game.title }}</h2>
+      </a>
+    </article>
+  {% empty %}
+    <p class="games-list-empty">No games matched your search.</p>
+  {% endfor %}
+  </section>
+
+  {% include 'paginator_nav.html' with page_obj=games %}
+{% endblock %}
+
+

@@ -1,0 +1,121 @@
+body {
+  padding: 0;
+  width: 480px;
+  margin: 0 auto;
+  min-height: 100vh;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+body > main {
+  flex-grow: 1;
+  margin: 1rem 0;
+}
+
+header, footer {
+  height: 5rem;
+  width: 100%;
+  border: 5px solid black;
+  background: #ccc;
+  box-sizing: border-box;
+}
+.session-info {
+  padding: 1rem;
+  width: 100%;
+  border: 5px solid black;
+  background: #aaa;
+  box-sizing: border-box;
+}
+
+
+form.games-filter {
+}
+form.games-filter > fieldset {
+  border: 1px solid #000;
+  padding: 0 1rem 1rem 1rem;
+  margin: 0;
+}
+form.games-filter > fieldset.folded {padding-bottom: 0}
+form.games-filter > fieldset.folded > * {display: none;}
+form.games-filter > fieldset.folded > legend {display: block; margin-bottom: -1px}
+form.games-filter > fieldset > legend {
+  float: left;
+  background: #ddd;
+  border: 1px solid #000;
+  width: calc(100% + 2rem + 2px);
+  box-sizing: border-box;
+  padding: .5rem;
+  margin-top: -1px;
+  margin-left: calc(-1rem - 1px);
+  margin-bottom: 1rem;
+  position: relative;
+  cursor: pointer;
+}
+form.games-filter > fieldset > legend:after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0 1rem;
+  display: inline-block;
+  height: 100%;
+  line-height: 2rem;
+  content: '▼'
+}
+form.games-filter > fieldset.folded > legend:after {
+  content: '▶'
+}
+
+
+.hidden {display: none;}
+
+
+.games-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.games-list > .games-list-empty {
+  border: 2px solid red;
+  padding: 1rem;
+}
+.games-list > article {
+  border: 2px solid black;
+  min-height: 5rem;
+}
+.games-list > article > a {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 1rem;
+}
+.games-list > article > a:hover,
+.games-list > article > a:focus {
+  background: #ccf;
+}
+.games-list > article > a > h2 {}
+.games-list > article > a > img {
+  height: 3rem;
+  display: block;
+}
+
+/*
+From https://www.freecodecamp.org/news/css-media-queries-breakpoints-media-types-standard-resolutions-and-more/
+
+Now let’s see some common breakpoints for widths of devices:
+
+    320px — 480px: Mobile devices
+    481px — 768px: iPads, Tablets
+    769px — 1024px: Small screens, laptops
+    1025px — 1200px: Desktops, large screens
+    1201px and more —  Extra large screens, TV
+*/
+@media (max-width: 480px) {}
+@media (max-width: 768px) {}
+@media (max-width: 1024px) {}
+@media (max-width: 1200px) {}
+@media (min-width: 1201px) {}

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block main %}
+  <h1>{{ game.title }}</h1>
+  <dl>
+    <dt>Game language</dt>
+    <dd>{{ game.get_game_lang_display }}</dd>
+
+    <dt>Rules language(s)</dt>
+    <dd><ul>{{ game.rules_lang_display|unordered_list }}</ul></dd>
+
+    <dt>Links</dt>
+    <dd><ul>{{ game.link_tags_list }}</ul></dd>
+  </dl>
+  <a href="{% url 'games:list' %}">Back to the list</a>
+{% endblock %}

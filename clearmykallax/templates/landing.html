@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block main %}
+  <h1>Welcome</h1>
+  <form action="{% url 'signups:send-magic-link' %}" method="post">
+    <div>
+      {{ emailform.email.label_tag }}
+      {{ emailform.email }}
+    </div>
+    <div>
+      <button type="submit">Receive login link</button>
+      {% csrf_token %}
+    </div>
+  </form>
+{% endblock %}

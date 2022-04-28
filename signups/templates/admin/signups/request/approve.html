@@ -1,0 +1,16 @@
+{% extends "admin/base_site.html" %}
+
+{% load admin_urls %}
+
+{% block content %}
+  <form method="post">
+    <p>
+      You sure you want to approve the signup request <strong>{{ object}}</strong>?
+    </p>
+    <p>
+      <button type="submit">Yes, approve</button>
+      <a href="{% url opts|admin_urlname:'change' object.pk %}">No, take me back</a>
+      {% csrf_token %}
+    </p>
+  </form>
+{% endblock %}

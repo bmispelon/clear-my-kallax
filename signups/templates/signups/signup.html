@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block main %}
+  <form action="{% url 'signups:signup' %}" method="post">
+    <div>
+      {{ form.name.label_tag }}
+      {{ form.name }}
+      {{ form.name.errors }}
+    </div>
+
+    <div>
+      {{ form.email.label_tag }}
+      {{ form.email }}
+      {{ form.email.errors }}
+    </div>
+
+    <div>
+      {{ form.comments.label_tag }}
+      {{ form.comments }}
+      {{ form.comments.errors }}
+    </div>
+
+    <div>
+      <button type="submit">Sign up</button>
+      {% csrf_token %}
+    </div>
+
+  </form>
+{% endblock %}
