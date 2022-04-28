@@ -32,7 +32,7 @@ ALLOWED_HOSTS = [host for x in os.getenv('DJANGO_ALLOWED_HOSTS', '').split(',') 
 DEFAULT_FROM_EMAIL = os.getenv('DJANGO_DEFAULT_FROM_EMAIL', 'games@bmispelon.rocks')
 
 if 'DJANGO_EMAIL_HOST' in os.environ:
-    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
     try:
         host, port = os.environ['DJANGO_EMAIL_HOST'].split(':')
     except ValueError:
