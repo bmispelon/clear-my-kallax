@@ -43,6 +43,8 @@ if 'DJANGO_EMAIL_HOST' in os.environ:
 
     EMAIL_HOST_USER = os.getenv('DJANGO_EMAIL_HOST_USER', '')
     EMAIL_HOST_PASSWORD = os.getenv('DJANGO_EMAIL_HOST_PASSWORD', '')
+    EMAIL_USE_TLS = os.getenv('DJANGO_EMAIL_USE_TLS', 'FALSE').upper() in {'TRUE', 'YES', 'Y'}
+    EMAIL_USE_SSL = os.getenv('DJANGO_EMAIL_USE_SSL', 'FALSE').upper() in {'TRUE', 'YES', 'Y'}
 else:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
