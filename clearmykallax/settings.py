@@ -71,6 +71,13 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+if os.getenv('DJANGO_USE_WHITENOISE', 'no').upper() in {'YES', 'TRUE', 'Y'}:
+    # insert whitenoise middleware just after django's security middleware
+    MIDDLEWARE.insert(
+        MIDDLEWARE.index('django.middleware.security.SecurityMiddleware'),
+        'whitenoise.middleware.WhiteNoiseMiddleware'
+    )
+
 ROOT_URLCONF = 'clearmykallax.urls'
 
 TEMPLATES = [
@@ -142,6 +149,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
+STATIC_ROOT = BASE_DIR / '_collectedstatic'
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'clearmykallax' / 'static',
