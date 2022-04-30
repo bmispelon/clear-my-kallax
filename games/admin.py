@@ -9,3 +9,4 @@ class GameAdmin(admin.ModelAdmin):
     list_display = ['title']
     prepopulated_fields = {'slug': ('title',)}
     form = GameAdminForm
+    search_fields = ['title', 'notes']
