@@ -1,12 +1,12 @@
-{% if page_obj.is_paginated %}
+{% if page_obj.has_other_pages %}
 <nav class="paginator">
   <a href="?page=1" rel="first">first</a>
-  {% if page_obj.has_previous %}
+  {% if page_obj.has_previous and page_obj.number > 1 %}
     <a href="?page={{ page_obj.previous_page_number }}" rel="prev">previous</a>
   {% endif %}
   <a href="?page={{ page_obj.number }}" class="current">page {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</a>
   
-  {% if page_obj.has_next %}
+  {% if page_obj.has_next and page_obj.next_page_number < page_obj.paginator.num_pages %}
     <a href="?page={{ page_obj.next_page_number }}" rel="next">next</a>
   {% endif %}
   <a href="?page=-1" rel="last">last</a>
