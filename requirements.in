@@ -1,0 +1,7 @@
+dj-database-url
+Django==4.0.*
+django-ipware==4.0.*
+django-sesame==2.4
+gunicorn
+psycopg2
+whitenoise==6.0.*
