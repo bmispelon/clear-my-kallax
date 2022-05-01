@@ -1,16 +1,20 @@
 {% extends 'base.html' %}
 
 {% block main %}
-  <h1>{{ game.title }}</h1>
-  <dl>
-    <dt>Game language</dt>
-    <dd>{{ game.get_game_lang_display }}</dd>
+  {% url 'games:list' as game_list_url %}
+  <nav><a href="{{ request.GET.backto|default:game_list_url }}" rel="prev">Back to the list</a></nav>
+  <article class="game-details">
+    <h1>{{ game.title }}</h1>
+    <dl>
+      <dt>Game language</dt>
+      <dd>{{ game.get_game_lang_display }}</dd>
 
-    <dt>Rules language(s)</dt>
-    <dd><ul>{{ game.rules_lang_display|unordered_list }}</ul></dd>
+      <dt>Rules language{{ game.rules_lang|length|pluralize }}</dt>
+      <dd><ul>{{ game.rules_lang_display|unordered_list }}</ul></dd>
 
-    <dt>Links</dt>
-    <dd><ul>{{ game.link_tags_list }}</ul></dd>
-  </dl>
-  <a href="{% url 'games:list' %}">Back to the list</a>
+      <dt>Links</dt>
+      <dd><ul>{{ game.link_tags_list }}</ul></dd>
+    </dl>
+  </article>
+  <nav><a href="{{ request.GET.backto|default:game_list_url }}" rel="prev">Back to the list</a></nav>
 {% endblock %}
