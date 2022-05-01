@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.http import HttpResponseRedirect
 from django.urls import reverse
 
 from import_export.admin import ImportExportModelAdmin
@@ -24,3 +25,9 @@ class GameAdmin(ImportExportModelAdmin):
 
     def view_on_site(self, obj):
         return reverse('games:detail', kwargs={'slug': obj.slug})
+
+    def change_view(self, request, object_id, form_url='', extra_context=None):
+        response = super().change_view(request, object_id, form_url, extra_context)
+        if request.method == 'POST' and request.POST.get('backto'):
+            return HttpResponseRedirect(request.POST['backto'])
+        return response

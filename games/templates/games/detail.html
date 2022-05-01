@@ -2,9 +2,18 @@
 
 {% block main %}
   {% url 'games:list' as game_list_url %}
-  <nav><a href="{{ request.GET.backto|default:game_list_url }}" rel="prev">Back to the list</a></nav>
+
   <article class="game-details">
+    <nav><a href="{{ request.GET.backto|default:game_list_url }}" rel="prev">Back to the list</a></nav>
     <h1>{{ game.title }}</h1>
+    {% if user.is_staff %}
+    <nav class="admin-toolbox">
+      <a href="{% url 'admin:games_game_change' game.pk %}?backto={{ request.get_full_path|urlencode }}">Edit</a>
+    </nav>
+    {% endif %}
+    {% if game.notes %}
+      <p class="game-notes">{{ game.notes|linebreaksbr }}</p>
+    {% endif %}
     <dl>
       <dt>Game language</dt>
       <dd>{{ game.get_game_lang_display }}</dd>
@@ -15,6 +24,6 @@
       <dt>Links</dt>
       <dd><ul>{{ game.link_tags_list }}</ul></dd>
     </dl>
-  </article>
   <nav><a href="{{ request.GET.backto|default:game_list_url }}" rel="prev">Back to the list</a></nav>
+  </article>
 {% endblock %}

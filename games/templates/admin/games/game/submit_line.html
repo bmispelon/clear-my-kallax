@@ -1,0 +1,13 @@
+{% extends 'admin/submit_line.html' %}
+
+{% load i18n %}
+
+{% block submit-row %}
+  {% if request.GET.backto %}
+    <input type="submit" value="{% translate 'Save' %}" class="default" name="_save">
+    <a href="{{ request.GET.backto}}" class="closelink">Cancel</a>
+    <input type="hidden" name="backto" value="{{ request.GET.backto}}">
+  {% else %}
+    {{ block.super }}
+  {% endif %}
+{% endblock %}
