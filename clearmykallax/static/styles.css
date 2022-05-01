@@ -51,6 +51,22 @@ header, footer {
 
 
 /* ==========
+   HEADER
+   ========== */
+header > .title {font-size: 1.5rem}
+header > .title > strong {font-size: 2rem;}
+header > .tagline {font-style: italic;}
+header > .tagline .emoji {font-style: normal;}
+
+
+/* ==========
+   FOOTER
+   ========== */
+footer {font-size: .75rem;}
+footer a[href^="mailto:"] {font-family: monospace}
+footer a.favicon-attrib {font-family: monospace}
+
+/* ==========
    FORMS (generic)
    ========== */
 form.styled input[type=text],

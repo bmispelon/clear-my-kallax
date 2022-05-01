@@ -9,14 +9,30 @@
     <script src="{% static 'application.js' %}"></script>
   </head>
   <body>
-    <header>{% block header %}{% endblock %}</header>
+    <header>
+    {% block header %}
+      <div class="title"><strong>B</strong>aptiste's <strong>B</strong>oardgame <strong><s>B</s>G</strong>iveaway</div>
+      <div class="tagline">Help me make space on my shelves please <span class="emoji">🥺</span></div>
+    {% endblock %}
+    </header>
+
     {% if user.is_authenticated %}
     <section class="session-info">
       Logged in as <strong>{{ user.email }}</strong>.
       <a href="{% url 'logout' %}" class="logout">log out</a>
     </section>
     {% endif %}
+
     <main>{% block main %}{% endblock %}</main>
-    <footer>{% block footer %}{% endblock %}
+
+    <footer>
+    {% block footer %}
+      <p>Lovingly made in <abbr title="Norway">🇳🇴</abbr> by Baptiste.</p>
+      {% if user.is_authenticated %}
+        <p>Questions? Problems? Contact me at <a href="mailto:games@bmispelon.rocks">games@bmispelon.rocks</a>.</p>
+      {% endif %}
+      <p>Favicon created by <a href="https://www.flaticon.com/free-icons/dice" class="favicon-attrib" target="_blank">@juicy_fish</a>.</p>
+    {% endblock %}
+    </footer>
   </body>
 </html>
