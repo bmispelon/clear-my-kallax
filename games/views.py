@@ -1,4 +1,3 @@
-from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, render
 from django.contrib.auth.decorators import login_required
 
@@ -15,11 +14,8 @@ def games_list(request):
     if filterform.is_bound:
         queryset = filterform.apply_to_queryset(queryset)
 
-    paginator = Paginator(queryset, 24)
-    page = paginator.get_page(request.GET.get('page'))
-
     return render(request, 'games/list.html', {
-        'games': page,
+        'games': queryset,
         'filterform': filterform,
     })
 

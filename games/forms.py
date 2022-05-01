@@ -2,6 +2,7 @@ import logging
 
 from django import forms
 from django.contrib.postgres.forms import SimpleArrayField
+from django.utils.html import format_html
 
 from games.models import Game
 
@@ -15,10 +16,39 @@ class GameAdminForm(forms.ModelForm):
         fields = ['title', 'slug', 'notes', 'game_lang', 'rules_lang', 'links']
 
 
+_LANG_SMALL = {
+    Game.LANG.XX: '\N{EMPTY SET}'
+}
+
+
+class LangChoiceCheckboxList(forms.CheckboxSelectMultiple):
+    option_inherits_attrs = False  # To make sure the CSS class applies to the wrapper <div. but not the <input>
+
+    def __init__(self, *args, **kwargs):
+        kwargs.setdefault('attrs', {}).setdefault('class', '')
+        kwargs['attrs']['class'] += ' lang-choice-widget'
+        super().__init__(*args, **kwargs)
+
+
+class LangChoiceField(forms.MultipleChoiceField):
+    LANG_CHOICES = [(value, format_html('<abbr title="{}">{}</abbr>', label, _LANG_SMALL.get(value, value))) for value, label in Game.LANG.choices]
+
+    def __init__(self, *args, **kwargs):
+        kwargs.setdefault('choices', self.LANG_CHOICES)
+        kwargs.setdefault('initial', Game.LANG.values)
+        kwargs.setdefault('required', False)
+        kwargs.setdefault('widget', LangChoiceCheckboxList)
+        super().__init__(*args, **kwargs)
+
+
 class FilterForm(forms.Form):
-    keyword = forms.CharField(required=False)
-    game_lang = forms.MultipleChoiceField(choices=Game.LANG.choices, required=False)
-    rules_lang = forms.MultipleChoiceField(choices=Game.LANG.choices, required=False)
+    keyword = forms.CharField(required=False, help_text="In game's title or description")
+    game_lang = LangChoiceField()
+    rules_lang = LangChoiceField()
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['keyword'].widget.attrs['placeholder'] = self.fields['keyword'].help_text
 
     @classmethod
     def from_request(cls, request):

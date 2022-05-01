@@ -1,39 +1,38 @@
 {% extends 'base.html' %}
 
 {% load static %}
+{% load formtools %}{# from templatetools app #}
 
 {% block main %}
-  <form method="get" class="games-filter {% if filterform.is_bound %}active{% endif %}">
+  <form method="get" class="games-filter styled {% if filterform.is_bound %}active{% endif %}">
     <fieldset class="foldable">
       <legend>Filter</legend>
 
-      <div class="fieldwrapper">
+      <div class="row">
         {{ filterform.keyword.label_tag }}
-        {{ filterform.keyword }}
+        {{ filterform.keyword|addclass:"flexpand" }}
       </div>
 
-      <div class="fieldwrapper">
+      <div class="row">
         {{ filterform.game_lang.label_tag }}
-        {{ filterform.game_lang }}
+        {{ filterform.game_lang|addclass:"flexpand" }}
       </div>
 
-      <div class="fieldwrapper">
+      <div class="row">
         {{ filterform.rules_lang.label_tag }}
-        {{ filterform.rules_lang }}
+        {{ filterform.rules_lang|addclass:"flexpand" }}
       </div>
 
-      <div class="fieldwrapper submit">
+      <div class="row submit">
         <button type="submit">Apply filter</button>
         {% if filterform.is_bound %}<a href="{% url 'games:list' %}">Clear all filters</a>{% endif %}
       </div>
     </fieldset>
   </form>
 
-  {% with c=games.paginator.count %}
+  {% with c=games|length %}
     <h1>{{ c }} {% if filterform.is_bound %}Result{{ c|pluralize }}{% else %}Game{{ c|pluralize }}{% endif %}:</h1>
   {% endwith %}
-
-  {% include 'paginator_nav.html' with page_obj=games %}
 
   <section class="games-list">
   {% for game in games %}
@@ -47,8 +46,6 @@
     <p class="games-list-empty">No games matched your search.</p>
   {% endfor %}
   </section>
-
-  {% include 'paginator_nav.html' with page_obj=games %}
 {% endblock %}
 
 

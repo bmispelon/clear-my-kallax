@@ -1,45 +1,112 @@
+:root {
+  /* Palette from https://colorpalettes.net/color-palette-4240/ */
+  --palette-black: #111b1e;
+  --palette-grayblue: #2f4c58;
+  --palette-green: #63a583;
+  --palette-blue: #6e93d6;
+  --palette-beige: #e4dbd9;
+}
 body {
   padding: 0;
-  width: 480px;
+  max-width: 480px;
+  width: 100%;
   margin: 0 auto;
   min-height: 100vh;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  font-family: sans-serif;
+}
+body> header,
+body> .session-info,
+body > main,
+body > footer {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0 0 1rem 0;
+  padding: 1rem;
+  border: 5px solid var(--palette-black);
 }
 
 body > main {
   flex-grow: 1;
-  margin: 1rem 0;
+  padding: 0;
+  border: 0;
 }
 
 header, footer {
-  height: 5rem;
-  width: 100%;
-  border: 5px solid black;
-  background: #ccc;
-  box-sizing: border-box;
+  background: var(--palette-green);
+  min-height: 5rem;
 }
 .session-info {
-  padding: 1rem;
+  background: var(--palette-blue);
+}
+
+
+/* ==========
+   UTILITIES
+   ========== */
+.hidden {display: none;}
+.flexpand {flex: 1 1;}
+
+
+/* ==========
+   FORMS (generic)
+   ========== */
+form.styled input[type=text],
+form.styled button[type=submit],
+form.styled select {
+  padding: .5rem;
+  border-radius: .25rem;
+}
+form.styled .row {
+  margin: 0 0 1rem 0;
   width: 100%;
-  border: 5px solid black;
-  background: #aaa;
-  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+form.styled .row:last-child {
+  margin-bottom: 0;
+}
+form.styled .row > label {margin-right: 1rem;}
+
+.lang-choice-widget {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
 }
 
 
-form.games-filter {
+/* ==========
+   CUSTOM WIDGETS
+   ========== */
+.lang-choice-widget > div {
+  flex: 1;
+  text-align: center;
 }
+.lang-choice-widget > div:hover {
+  background: var(--palette-beige);
+}
+.lang-choice-widget label {
+  padding: .5rem 0;
+  display: inline-block;
+  width: 100%;
+}
+
+
+/* ==========
+   GAME FILTER FORM
+   ========== */
 form.games-filter > fieldset {
   border: 1px solid #000;
   padding: 0 1rem 1rem 1rem;
   margin: 0;
 }
-form.games-filter > fieldset.folded {padding-bottom: 0}
-form.games-filter > fieldset.folded > * {display: none;}
-form.games-filter > fieldset.folded > legend {display: block; margin-bottom: -1px}
-form.games-filter > fieldset > legend {
+form.games-filter > fieldset.foldable.folded {padding-bottom: 0}
+form.games-filter > fieldset.foldable.folded > * {display: none;}
+form.games-filter > fieldset.foldable.folded > legend {display: block; margin-bottom: -1px}
+form.games-filter > fieldset.foldable > legend {
   float: left;
   background: #ddd;
   border: 1px solid #000;
@@ -52,7 +119,7 @@ form.games-filter > fieldset > legend {
   position: relative;
   cursor: pointer;
 }
-form.games-filter > fieldset > legend:after {
+form.games-filter > fieldset.foldable > legend:after {
   position: absolute;
   top: 0;
   right: 0;
@@ -60,16 +127,19 @@ form.games-filter > fieldset > legend:after {
   display: inline-block;
   height: 100%;
   line-height: 2rem;
-  content: '▼'
+  color: blue;
+  font-size: .75rem;
+  content: 'hide [-]';
+  font-family: monospace;
 }
-form.games-filter > fieldset.folded > legend:after {
-  content: '▶'
+form.games-filter > fieldset.foldable.folded > legend:after {
+  content: 'show [+]'
 }
 
 
-.hidden {display: none;}
-
-
+/* ==========
+   GAME LIST
+   ========== */
 .games-list {
   display: flex;
   flex-direction: column;
@@ -95,13 +165,14 @@ form.games-filter > fieldset.folded > legend:after {
 }
 .games-list > article > a:hover,
 .games-list > article > a:focus {
-  background: #ccf;
+  background: var(--palette-beige);
 }
 .games-list > article > a > h2 {}
 .games-list > article > a > img {
   height: 3rem;
   display: block;
 }
+
 
 /*
 From https://www.freecodecamp.org/news/css-media-queries-breakpoints-media-types-standard-resolutions-and-more/

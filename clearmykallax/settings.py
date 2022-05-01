@@ -63,6 +63,7 @@ INSTALLED_APPS = [
 
     'games',
     'signups',
+    'templatetools',
 ]
 
 MIDDLEWARE = [
