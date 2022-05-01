@@ -7,11 +7,11 @@ from django.utils.translation import gettext_lazy as _
 
 
 class LANG (models.TextChoices):
-    FR = 'FR', _("french")
-    EN = 'EN', _("english")
-    HU = 'HU', _("hungarian")
+    FR = 'FR', _("French")
+    EN = 'EN', _("English")
+    HU = 'HU', _("Hungarian")
 
-    XX = 'XX', _("independent")
+    XX = 'XX', _("Language independent")
 
 
 class Game(models.Model):
