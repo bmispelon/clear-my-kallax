@@ -63,7 +63,6 @@ INSTALLED_APPS = [
 
     'games',
     'signups',
-    'templatetools',
 ]
 
 MIDDLEWARE = [
@@ -100,6 +99,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'libraries': {'formtools': 'clearmykallax.templatetags.formtools'},
         },
     },
 ]
