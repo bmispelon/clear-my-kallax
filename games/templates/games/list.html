@@ -25,7 +25,7 @@
 
       <div class="row submit">
         <button type="submit">Apply filter</button>
-        {% if filterform.is_bound %}<a href="{% url 'games:list' %}">Clear all filters</a>{% endif %}
+        {% if filterform.is_bound %}<a href="{% url 'games:list' %}" class="clear">Clear all filters</a>{% endif %}
       </div>
     </fieldset>
   </form>

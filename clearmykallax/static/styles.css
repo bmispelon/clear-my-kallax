@@ -70,17 +70,17 @@ form.styled .row:last-child {
   margin-bottom: 0;
 }
 form.styled .row > label {margin-right: 1rem;}
-
-.lang-choice-widget {
-  display: flex;
-  align-items: center;
-  gap: .5rem;
-}
+form.styled .row.submit {gap: 1rem;}
 
 
 /* ==========
    CUSTOM WIDGETS
    ========== */
+.lang-choice-widget {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
 .lang-choice-widget > div {
   flex: 1;
   text-align: center;
@@ -134,6 +134,19 @@ form.games-filter > fieldset.foldable > legend:after {
 }
 form.games-filter > fieldset.foldable.folded > legend:after {
   content: 'show [+]'
+}
+
+form.games-filter .row.submit a.clear {
+  padding: .5rem;
+  border-radius: .25rem;
+  text-decoration: none;
+  color: #000;
+  border: 1px solid #000;
+}
+
+form.games-filter legend small {
+  font-size: .75rem;
+  font-style: italic;
 }
 
 
