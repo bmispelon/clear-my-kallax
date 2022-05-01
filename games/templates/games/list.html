@@ -4,9 +4,9 @@
 {% load formtools %}{# from templatetools app #}
 
 {% block main %}
-  <form method="get" class="games-filter styled {% if filterform.is_bound %}active{% endif %}">
-    <fieldset class="foldable">
-      <legend>Filter</legend>
+  <form method="get" class="games-filter styled">
+    <fieldset class="foldable{% if not filterform.is_bound %} initially-folded{% endif %}">
+      <legend>Filter <small>({% if filterform.is_bound %}active{% else %}inactive{% endif %})</small></legend>
 
       <div class="row">
         {{ filterform.keyword.label_tag }}
