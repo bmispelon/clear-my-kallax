@@ -114,6 +114,7 @@ form.styled .row.submit {gap: 1rem;}
 /* ==========
    GAME FILTER FORM
    ========== */
+form.games-filter {width: 100%}
 form.games-filter > fieldset {
   border: 1px solid #000;
   padding: 0 1rem 1rem 1rem;
