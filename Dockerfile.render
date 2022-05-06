@@ -1,0 +1,29 @@
+FROM python:3.10
+
+RUN apt-get update && apt-get install -y \
+    python3-pip \
+    python3-venv \
+    python3-dev \
+    python3-setuptools \
+    python3-wheel
+
+RUN mkdir -p /app
+WORKDIR /app
+
+COPY requirements.txt .
+RUN python -m pip install --upgrade pip
+RUN python -m pip install -r requirements.txt
+
+COPY . .
+
+ENV DJANGO_DEBUG=FALSE
+ENV DJANGO_ALLOWED_HOSTS=games.bmispelon.rocks,clearmykallax.onrender.com
+ENV DJANGO_SECURE_PROXY_SSL_HEADER=HTTP_X_FORWARDED_PROTO
+ENV DJANGO_USE_WHITENOISE=TRUE
+ENV DJANGO_EMAIL_HOST=mail.runbox.com:465 DJANGO_EMAIL_TIMEOUT=10 DJANGO_EMAIL_USE_SSL=TRUE
+ENV WEB_CONCURRENCY=4
+
+RUN python manage.py collectstatic --noinput
+#RUN python manage.py migrate --noinput
+
+CMD ["gunicorn", "clearmykallax.wsgi"]

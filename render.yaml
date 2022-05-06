@@ -1,0 +1,15 @@
+databases:
+  - name: clearmykallaxdb
+    region: frankfurt
+
+services:
+  - type: web
+    name: clearmykallax
+    env: docker
+    region: frankfurt
+    dockerfilePath: Dockerfile.render
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: clearmykallaxdb
+          property: connectionString
