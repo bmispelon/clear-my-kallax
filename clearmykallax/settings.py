@@ -170,3 +170,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 if 'DJANGO_SECURE_PROXY_SSL_HEADER' in os.environ:
     SECURE_PROXY_SSL_HEADER = (os.environ['DJANGO_SECURE_PROXY_SSL_HEADER'], 'https')
 SECURE_SSL_REDIRECT = os.getenv('DJANGO_SECURE_SSL_REDIRECT', 'FALSE').upper() in {'TRUE', 'YES', 'Y'}
+
+
+if 'SENTRY_DSN_URL' in os.environ:
+    INSTALLED_APPS.append('sentry_auto_init')
