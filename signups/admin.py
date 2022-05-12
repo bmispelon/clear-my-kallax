@@ -1,5 +1,5 @@
 from django.contrib import admin, messages
-from django.shortcuts import get_object_or_404, render, redirect
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import path
 
 from signups.emails import _get_email_body, send_magic_link_email
@@ -35,8 +35,16 @@ class RequestAdmin(admin.ModelAdmin):
 
     def get_urls(self):
         return [
-            path('approve/<int:object_id>/', self.admin_site.admin_view(self.approve_view), name='signups_request_approve'),
-            path('send-link/<int:object_id>/', self.admin_site.admin_view(self.send_magic_link_view), name='signups_request_send_magic_link'),
+            path(
+                'approve/<int:object_id>/',
+                self.admin_site.admin_view(self.approve_view),
+                name='signups_request_approve'
+            ),
+            path(
+                'send-link/<int:object_id>/',
+                self.admin_site.admin_view(self.send_magic_link_view),
+                name='signups_request_send_magic_link'
+            ),
         ] + super().get_urls()
 
     def approve_view(self, request, object_id):

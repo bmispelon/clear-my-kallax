@@ -1,12 +1,11 @@
 from django.contrib import admin
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-
-from import_export.admin import ImportExportModelAdmin
 from import_export import resources
+from import_export.admin import ImportExportModelAdmin
 
-from games.models import Game
 from games.forms import GameAdminForm
+from games.models import Game
 
 
 class GameResource(resources.ModelResource):

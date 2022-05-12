@@ -1,11 +1,8 @@
 from django.urls import path
 
 from signups.views import (
-    SignupView,
-    SendMagicLinkView,
-    signup_ok,
-    signup_email_already_exists,
-    send_magic_link_ok,
+    SendMagicLinkView, SignupView, send_magic_link_ok,
+    signup_email_already_exists, signup_ok,
 )
 
 app_name = 'signups'

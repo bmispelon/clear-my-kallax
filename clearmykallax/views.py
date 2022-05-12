@@ -1,8 +1,8 @@
 from django.conf import settings
 from django.http import FileResponse, HttpRequest, HttpResponse
+from django.shortcuts import redirect, render
 from django.views.decorators.cache import cache_control
 from django.views.decorators.http import require_GET
-from django.shortcuts import render, redirect
 
 from signups.forms import SendLinkForm
 
@@ -18,11 +18,7 @@ def landing(request):
     return render(request, 'landing.html', context)
 
 
-def login(request):
-    pass  # TODO
-
-
-# from https://adamj.eu/tech/2022/01/18/how-to-add-a-favicon-to-your-django-site/#serve-a-png-at-favicon-ico
+# from https://adamj.eu/tech/2022/01/18/how-to-add-a-favicon-to-your-django-site/
 @require_GET
 @cache_control(max_age=60 * 60 * 24, immutable=True, public=True)  # one day
 def favicon(request: HttpRequest) -> HttpResponse:
