@@ -38,7 +38,7 @@
       <dt>Rules language{{ game.rules_lang|length|pluralize }}</dt>
       <dd><ul>{{ game.rules_lang_display|unordered_list }}</ul></dd>
 
-      <dt>Links</dt>
+      <dt>External link{{ game.links|length|pluralize }}</dt>
       <dd><ul>{{ game.link_tags_list }}</ul></dd>
     </dl>
   <nav><a href="{{ request.GET.backto|default:game_list_url }}" rel="prev">Back to the list</a></nav>
