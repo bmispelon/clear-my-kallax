@@ -19,9 +19,14 @@
     {% if user.is_authenticated %}
     <section class="session-info">
       Logged in as <strong>{{ user.email }}</strong>.
+      {% if user.is_staff %}<span class="staff-marker">⭐</span>{% endif %}
       <a href="{% url 'logout' %}" class="logout">log out</a>
     </section>
     {% endif %}
+
+    {% for message in messages %}
+      <div class="message {{ message.tags }}">{{ message }}</div>
+    {% endfor %}
 
     <main>{% block main %}{% endblock %}</main>
 

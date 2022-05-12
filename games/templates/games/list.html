@@ -36,7 +36,7 @@
 
   <section class="games-list">
   {% for game in games %}
-    <article>
+    <article{% if not game.is_visible %} class="unavailable"{% endif %}>
       <a href="{% url 'games:detail' slug=game.slug %}{% if filterform.is_bound %}?backto={{ request.get_full_path|urlencode }}{% endif %}">
         <img src="{% static 'Dice-256.png' %}" alt="game illustration">
         <h2>{{ game.title }}</h2>

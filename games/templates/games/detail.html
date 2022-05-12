@@ -4,13 +4,30 @@
   {% url 'games:list' as game_list_url %}
 
   <article class="game-details">
-    <nav><a href="{{ request.GET.backto|default:game_list_url }}" rel="prev">Back to the list</a></nav>
     <h1>{{ game.title }}</h1>
+
     {% if user.is_staff %}
-    <nav class="admin-toolbox">
-      <a href="{% url 'admin:games_game_change' game.pk %}?backto={{ request.get_full_path|urlencode }}">Edit</a>
-    </nav>
+    <section class="admin-toolbox">
+      <span class="title">Admin tools:</span>
+      <nav>
+        <a href="{% url 'admin:games_game_change' game.pk %}?backto={{ request.get_full_path|urlencode }}">Edit</a>
+        {% if game.is_visible %}
+          <form action="{% url 'games:hide' slug=game.slug %}" method="post">
+            <button type="submit">Hide</button>
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ request.get_full_path }}">
+          </form>
+        {% else %}
+          <form action="{% url 'games:show' slug=game.slug %}" method="post">
+            <button type="submit">Show</button>
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ request.get_full_path }}">
+          </form>
+        {% endif %}
+      </nav>
+    </section>
     {% endif %}
+
     {% if game.notes %}
       <p class="game-notes">{{ game.notes|linebreaksbr }}</p>
     {% endif %}

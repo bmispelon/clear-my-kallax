@@ -18,7 +18,7 @@ class GameAdminForm(forms.ModelForm):
 
     class Meta:
         model = Game
-        fields = ['title', 'slug', 'notes', 'game_lang', 'rules_lang', 'links']
+        fields = ['title', 'slug', 'visibility', 'notes', 'game_lang', 'rules_lang', 'links']
 
 
 _LANG_SMALL = {
