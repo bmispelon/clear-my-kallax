@@ -1,3 +1,4 @@
+import logging
 import os
 
 from django.apps import AppConfig
@@ -11,6 +12,7 @@ class AutoInitConfig(AppConfig):
     verbose_name = "Sentry Auto Init"
 
     def ready(self):
+        logging.info("Initializing Sentry SDK")
         sentry_sdk.init(
             dsn=os.getenv('SENTRY_DSN_URL'),
             integrations=[DjangoIntegration()],
