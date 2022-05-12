@@ -1,6 +1,5 @@
 from django import forms
 from django.contrib.auth.models import User
-
 from ipware import get_client_ip
 
 from signups.models import Request
@@ -29,7 +28,6 @@ class SignupForm(FindmatchingUserMixin, forms.ModelForm):
         if Request.objects.pending().filter(email=email).exists():
             raise forms.ValidationError("This email address has already signed up")
         return email
-
 
 
 class SendLinkForm(FindmatchingUserMixin, forms.Form):

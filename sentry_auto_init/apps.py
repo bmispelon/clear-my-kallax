@@ -1,9 +1,8 @@
 import logging
 import os
 
-from django.apps import AppConfig
-
 import sentry_sdk
+from django.apps import AppConfig
 from sentry_sdk.integrations.django import DjangoIntegration
 
 

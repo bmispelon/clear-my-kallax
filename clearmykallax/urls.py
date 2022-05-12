@@ -1,8 +1,8 @@
 from django.contrib import admin
-from django.urls import include, path
 from django.contrib.auth.views import LogoutView
+from django.urls import include, path
 
-from .views import favicon, robots_txt, landing, login
+from .views import favicon, landing, robots_txt
 
 
 def trigger_error(request):

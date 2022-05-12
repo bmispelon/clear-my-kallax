@@ -9,7 +9,12 @@ from games.models import Game
 
 class GameAdminForm(forms.ModelForm):
     rules_lang = forms.MultipleChoiceField(choices=Game.LANG.choices, required=False)
-    links = SimpleArrayField(forms.URLField(), delimiter='\n', widget=forms.Textarea, required=False)
+    links = SimpleArrayField(
+        forms.URLField(),
+        delimiter='\n',
+        widget=forms.Textarea,
+        required=False,
+    )
 
     class Meta:
         model = Game
@@ -22,7 +27,8 @@ _LANG_SMALL = {
 
 
 class LangChoiceCheckboxList(forms.CheckboxSelectMultiple):
-    option_inherits_attrs = False  # To make sure the CSS class applies to the wrapper <div. but not the <input>
+    # To make sure the CSS class applies to the wrapper <div> but not the <input>
+    option_inherits_attrs = False
 
     def __init__(self, *args, **kwargs):
         kwargs.setdefault('attrs', {}).setdefault('class', '')
@@ -31,7 +37,10 @@ class LangChoiceCheckboxList(forms.CheckboxSelectMultiple):
 
 
 class LangChoiceField(forms.MultipleChoiceField):
-    LANG_CHOICES = [(value, format_html('<abbr title="{}">{}</abbr>', label, _LANG_SMALL.get(value, value))) for value, label in Game.LANG.choices]
+    LANG_CHOICES = [
+        (value, format_html('<abbr title="{}">{}</abbr>', label, _LANG_SMALL.get(value, value)))
+        for value, label in Game.LANG.choices
+    ]
 
     def __init__(self, *args, **kwargs):
         kwargs.setdefault('choices', self.LANG_CHOICES)

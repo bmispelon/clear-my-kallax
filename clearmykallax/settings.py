@@ -15,6 +15,11 @@ from pathlib import Path
 
 import dj_database_url
 
+
+def _boolenv(key, default=False):
+    return os.getenv(key, str(default)).upper() in {'TRUE', 'YES', 'Y'}
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -24,9 +29,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'asdf')
 
-DEBUG = os.getenv('DJANGO_DEBUG', 'true').upper() in {'TRUE', 'YES', 'Y'}
+DEBUG = _boolenv('DJANGO_DEBUG', default=True)
 
-ALLOWED_HOSTS = [host for x in os.getenv('DJANGO_ALLOWED_HOSTS', '').split(',') if (host := x.strip())]
+ALLOWED_HOSTS = [
+    host for x in os.getenv('DJANGO_ALLOWED_HOSTS', '').split(',') if (host := x.strip())
+]
 
 
 DEFAULT_FROM_EMAIL = os.getenv('DJANGO_DEFAULT_FROM_EMAIL', 'games@bmispelon.rocks')
@@ -43,8 +50,8 @@ if 'DJANGO_EMAIL_HOST' in os.environ:
 
     EMAIL_HOST_USER = os.getenv('DJANGO_EMAIL_HOST_USER', '')
     EMAIL_HOST_PASSWORD = os.getenv('DJANGO_EMAIL_HOST_PASSWORD', '')
-    EMAIL_USE_TLS = os.getenv('DJANGO_EMAIL_USE_TLS', 'FALSE').upper() in {'TRUE', 'YES', 'Y'}
-    EMAIL_USE_SSL = os.getenv('DJANGO_EMAIL_USE_SSL', 'FALSE').upper() in {'TRUE', 'YES', 'Y'}
+    EMAIL_USE_TLS = _boolenv('DJANGO_EMAIL_USE_TLS')
+    EMAIL_USE_SSL = _boolenv('DJANGO_EMAIL_USE_SSL')
     EMAIL_TIMEOUT = int(os.getenv('DJANGO_EMAIL_TIMEOUT', '30'))
 else:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
@@ -76,7 +83,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-if os.getenv('DJANGO_USE_WHITENOISE', 'no').upper() in {'YES', 'TRUE', 'Y'}:
+if _boolenv('DJANGO_USE_WHITENOISE'):
     # insert whitenoise middleware just after django's security middleware
     MIDDLEWARE.insert(
         MIDDLEWARE.index('django.middleware.security.SecurityMiddleware'),
@@ -169,7 +176,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 if 'DJANGO_SECURE_PROXY_SSL_HEADER' in os.environ:
     SECURE_PROXY_SSL_HEADER = (os.environ['DJANGO_SECURE_PROXY_SSL_HEADER'], 'https')
-SECURE_SSL_REDIRECT = os.getenv('DJANGO_SECURE_SSL_REDIRECT', 'FALSE').upper() in {'TRUE', 'YES', 'Y'}
+SECURE_SSL_REDIRECT = _boolenv('DJANGO_SECURE_SSL_REDIRECT')
 
 
 if 'SENTRY_DSN_URL' in os.environ:

@@ -3,7 +3,6 @@ from urllib.parse import urlunsplit
 from django.conf import settings
 from django.core.mail import send_mail
 from django.urls import reverse
-
 from sesame.utils import get_query_string
 
 

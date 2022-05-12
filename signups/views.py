@@ -1,13 +1,12 @@
 from urllib.parse import urlencode
 
-from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
-from django.views import generic
-from django.urls import reverse_lazy, reverse
 from django.shortcuts import redirect
+from django.urls import reverse, reverse_lazy
+from django.views import generic
 
-from signups.forms import SignupForm, SendLinkForm
 from signups.emails import send_magic_link_email
+from signups.forms import SendLinkForm, SignupForm
 
 
 class SignupView(generic.CreateView):
@@ -34,7 +33,7 @@ class SignupView(generic.CreateView):
         return super().form_valid(form)
 
     def send_magic_link_instead(self, user):
-        send_magic_link_email(request, user)
+        send_magic_link_email(self.request, user)
         return redirect('signups:signup-email-already-exists')
 
 
@@ -57,5 +56,7 @@ class SendMagicLinkView(SuccessMessageMixin, generic.FormView):
 
 
 signup_ok = generic.TemplateView.as_view(template_name='signups/signup_ok.html')
-signup_email_already_exists = generic.TemplateView.as_view(template_name='signups/email_already_exists.html')
+signup_email_already_exists = generic.TemplateView.as_view(
+    template_name='signups/email_already_exists.html'
+)
 send_magic_link_ok = generic.TemplateView.as_view(template_name='signups/send_magic_link_ok.html')
