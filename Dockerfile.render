@@ -7,6 +7,9 @@ RUN apt-get update && apt-get install -y \
     python3-setuptools \
     python3-wheel
 
+# Add terminfo package for my terminal du jour
+RUN apt-get install -y kitty-terminfo
+
 RUN mkdir -p /app
 WORKDIR /app
 
