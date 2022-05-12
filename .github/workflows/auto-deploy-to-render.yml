@@ -1,11 +1,11 @@
 name: Auto Deploy to render.com
 on:
   push:
-    branches:
-      - $default-branch
+    branches: [ main ]
 
 jobs:
   auto_deploy:
+    name: Webhook deploy to render.com
     runs-on: ubuntu-latest
     steps:
       - run: echo "Triggering deploy hook on render.com"
