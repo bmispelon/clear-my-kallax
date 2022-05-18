@@ -5,6 +5,8 @@ from django.db import models
 from django.utils.html import format_html_join
 from django.utils.translation import gettext_lazy as _
 
+from games.thumbnails import DEFAULT_THUMBNAIL_SLUG, THUMBNAIL_SLUGS
+
 
 class LANG(models.TextChoices):
     FR = 'FR', _("French")
@@ -76,3 +78,12 @@ class Game(models.Model):
     def set_visibility(self, visibility):
         self.visibility = visibility
         self.save(update_fields=['visibility'])
+
+    @property
+    def thumbnail(self):
+        default = THUMBNAIL_SLUGS[DEFAULT_THUMBNAIL_SLUG]
+        return THUMBNAIL_SLUGS.get(self.slug, default)
+
+    @property
+    def has_thumbnail(self):
+        return self.slug in THUMBNAIL_SLUGS
