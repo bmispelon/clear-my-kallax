@@ -1,10 +1,14 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block main %}
   {% url 'games:list' as game_list_url %}
 
   <article class="game-details">
     <h1>{{ game.title }}</h1>
+
+    {% if game.has_thumbnail %}<div class="thumbnail"><img src="{% static game.thumbnail %}" alt="game illustration"></div>{% endif %}
 
     {% if user.is_staff %}
     <section class="admin-toolbox">
